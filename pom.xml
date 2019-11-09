@@ -84,7 +84,7 @@
 								<artifactItem>
 									<groupId>${project.groupId}</groupId>
 									<artifactId>${project.artifactId}</artifactId>
-									<version>${project.vesion}</version>
+									<version>${project.version}</version>
 								</artifactItem>
 							</artifactItems>
 						</configuration>

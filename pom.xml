@@ -22,7 +22,8 @@
 		<maven.deploy.skip>true</maven.deploy.skip>
 		<!-- solving error: Invalid or currupt jarfile /app.jar --> 
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<project.build.finalName>${project.artifactId}-${project.version}</project.build.finalName>		
 	</properties>
 
 	<dependencies>

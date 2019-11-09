@@ -20,6 +20,9 @@
 		<docker.image.prefix>tobiasgrott</docker.image.prefix>
 		<!-- how to skip docker in maven from my computer -->
 		<maven.deploy.skip>true</maven.deploy.skip>
+		<!-- solving error: Invalid or currupt jarfile /app.jar --> 
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 	</properties>
 
 	<dependencies>

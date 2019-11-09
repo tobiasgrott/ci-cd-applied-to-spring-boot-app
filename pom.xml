@@ -23,6 +23,9 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<project.build.finalName>${project.artifactId}-${project.version}</project.build.finalName>
+		<github.global.server>github</github.global.server>
+		<github.global.oauth2Token>${env.GITHUB_OAUTH_TOKEN}</github.global.oauth2Token>
+		<full-artifact-name>target/${project.artifactId}-${project.version}.jar</full-artifact-name>
 	</properties>
 
 	<dependencies>
@@ -67,9 +70,6 @@
 				</executions>
 				<configuration>
 					<repository>${docker.image.prefix}/${project.artifactId}</repository>
-					<buildArgs>
-						<JAR_FILE>target/${project.build.finalName}.jar</JAR_FILE>
-					</buildArgs>
 					<serverId>index.docker.io</serverId>
 					<registryUrl>https://index.docker.io:443/v1/</registryUrl>
 				</configuration>
@@ -97,7 +97,130 @@
 					</execution>
 				</executions>
 			</plugin>
+
+			<!-- jacoco-maven-plugin useful for Codecov -->
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>0.7.7.201606060606</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>report</id>
+						<phase>test</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!-- Generating github gh pages & maven project documents -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-site-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>com.github.github</groupId>
+				<artifactId>site-maven-plugin</artifactId>
+				<version>0.12</version>
+				<configuration>
+					<message>Building site for ${project.name} ${project.version}</message>
+					<server>github</server>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>site</goal>
+						</goals>
+						<phase>site</phase>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!-- Heroku Deployment -->
+			<plugin>
+				<groupId>com.heroku.sdk</groupId>
+				<artifactId>heroku-maven-plugin</artifactId>
+				<version>2.0.11</version>
+				<configuration>
+					<appName>cicd-spring-boot-java-app</appName>
+					<processTypes>
+						<web>java $JAVA_OPTS -jar -Dserver.port=$PORT ${full-artifact-name}</web>
+					</processTypes>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 
+	<reporting>
+		<plugins>
+			<!-- Github Site -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-project-info-reports-plugin</artifactId>
+				<version>3.0.0</version>
+				<reportSets>
+					<reportSet>
+						<reports>
+							<report>index</report>
+							<report>licenses</report>
+							<report>dependency-info</report>
+							<report>ci-management</report>
+							<report>dependencies</report>
+							<report>dependency-convergence</report>
+							<report>dependency-management</report>
+							<report>distribution-management</report>
+							<report>help</report>
+							<report>issue-management</report>
+							<report>mailing-lists</report>
+							<report>modules</report>
+							<report>plugin-management</report>
+							<report>plugins</report>
+							<report>team</report>
+							<report>scm</report>
+							<report>summary</report>
+						</reports>
+					</reportSet>
+				</reportSets>
+			</plugin>
+		</plugins>
+	</reporting>
+
+	<licenses>
+		<license>
+			<name>MIT License</name>
+			<url>http://www.opensource.org/licenses/mit-license.php</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+
+	<developers>
+		<developer>
+			<email>tobiasgrott@gmail.com</email>
+			<name>Tobias Grott</name>
+			<url>https://github.com/tobiasgrott</url>
+			<id>tobiasgrott</id>
+		</developer>
+	</developers>
+
+	<organization>
+		<name>Tobias Grott</name>
+		<url>https://github.com/tobiasgrott</url>
+	</organization>
+
+	<issueManagement>
+		<system>GitHub Issues</system>
+		<url>https://github.com/tobiasgrott/cicd-applied-to-spring-boot-java-app/issues</url>
+	</issueManagement>
+
+	<scm>
+		<url>https://github.com/tobiasgrott/cicd-applied-to-spring-boot-java-app</url>
+		<connection>scm:git:git://github.com/tobiasgrott/cicd-applied-to-spring-boot-java-app.git</connection>
+		<developerConnection>scm:git:git://github.com/tobiasgrott/cicd-applied-to-spring-boot-java-app.git</developerConnection>
+	</scm>
 </project>

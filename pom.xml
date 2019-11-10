@@ -218,12 +218,12 @@
 
 	<issueManagement>
 		<system>GitHub Issues</system>
-		<url>https://github.com/tobiasgrott/cicd-applied-to-spring-boot-java-app/issues</url>
+		<url>https://github.com/tobiasgrott/ci-cd-applied-to-spring-boot-app/issues</url>
 	</issueManagement>
 
 	<scm>
-		<url>https://github.com/tobiasgrott/cicd-applied-to-spring-boot-java-app</url>
-		<connection>scm:git:git://github.com/tobiasgrott/cicd-applied-to-spring-boot-java-app.git</connection>
-		<developerConnection>scm:git:git://github.com/tobiasgrott/cicd-applied-to-spring-boot-java-app.git</developerConnection>
+		<url>https://github.com/tobiasgrott/ci-cd-applied-to-spring-boot-app</url>
+		<connection>scm:git:git://github.com/tobiasgrott/ci-cd-applied-to-spring-boot-app.git</connection>
+		<developerConnection>scm:git:git://github.com/tobiasgrott/ci-cd-applied-to-spring-boot-app.git</developerConnection>
 	</scm>
 </project>
